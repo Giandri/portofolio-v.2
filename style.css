@@ -1,0 +1,391 @@
+:root {
+  --circle-outline: #505050;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "butler", sans-serif;
+  overflow: hidden;
+  background-color: rgb(18, 18, 18);
+  cursor: none;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--circle-outline);
+}
+
+.cursor-outline {
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--circle-outline);
+}
+
+.cursor-dot,
+.cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.counter {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  color: var(--circle-outline);
+  padding: 2rem 4rem;
+  font-size: 10vw;
+  font-family: "Butler", sans-serif;
+  font-weight: lighter;
+  font-style: italic;
+  z-index: 1000;
+}
+
+.site-teaser {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2rem 4rem;
+  color: var(--circle-outline);
+  font-size: 1rem;
+  font-family: "Butler", sans-serif;
+  font-weight: lighter;
+  font-style: italic;
+}
+
+.circles {
+  position: absolute;
+  left: 5rem;
+  bottom: 5rem;
+  height: 400px;
+  width: 400px;
+  border-radius: 100%;
+}
+
+.circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: 1px solid var(--circle-outline);
+  border-radius: 100%;
+}
+
+.circle-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+}
+
+.circle-inner-rotator {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 162.5px;
+  height: 162.5px;
+  background: none;
+  border: 1px solid var(--circle-outline);
+  border-radius: 100%;
+}
+
+.block {
+  position: absolute;
+  top: -100px;
+  left: 200px;
+  width: 0px;
+  height: 0px;
+  display: none;
+  background: none;
+  border: 1px solid var(--circle-outline);
+  transform-origin: bottom;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #cdc6be;
+}
+
+a {
+  text-decoration: none;
+  color: #cdc6be;
+}
+
+.web-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  padding: 2rem;
+  background: #cdc6be;
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  color: #cdc6be;
+  mix-blend-mode: difference;
+  z-index: 2;
+}
+
+nav > div {
+  flex: 1;
+}
+
+.logo {
+  text-align: center;
+  font-family: "Hilsfiger", sans-serif;
+}
+
+.logo a {
+  text-decoration: none;
+  font-size: 30px;
+  color: #cdc6be;
+  cursor: none;
+}
+
+.toggle-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.burger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.75rem 2rem 1.5rem 2rem;
+  background: rgb(255, 255, 255, 0);
+  outline: none;
+  border: none;
+  width: 28px;
+  height: 20px;
+  transition: all 250ms ease-out;
+  cursor: none;
+}
+
+.burger:before,
+.burger:after {
+  content: "";
+  width: 40px;
+  height: 2px;
+  position: absolute;
+  background: #cdc6be;
+  transition: all 250ms ease-out;
+}
+
+.burger:before {
+  transform: translateY(-3px);
+}
+
+.burger:after {
+  transform: translateY(3px);
+}
+
+.active.burger:before {
+  transform: translateY(0px) rotate(45deg);
+}
+
+.active.burger:after {
+  transform: translateY(0px) rotate(-45deg);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #141412;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  will-change: transform;
+}
+
+.overlay-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item {
+  display: flex;
+  cursor: none;
+  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
+}
+
+.menu-item p {
+  position: relative;
+  text-align: center;
+  font-family: "Hilsfiger", sans-serif;
+  font-size: 8vw;
+  line-height: 90%;
+  will-change: transform;
+  transition: letter-spacing 0.5s;
+}
+
+.menu-item p:hover {
+  letter-spacing: 0.1em;
+}
+
+.menu-item p#active::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  transform: translateY(-50%);
+  background: #c03f13;
+  width: 0%;
+  height: 10px;
+}
+
+.sub-nav {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5em;
+  opacity: 0;
+}
+
+.sub-nav p {
+  font-family: "Hilsfiger", sans-serif;
+  font-size: 20px;
+  color: #cdc6be;
+}
+
+.text-profile {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+}
+.text-profile h1 {
+  font-family: "Hilsfiger", sans-serif;
+  font-size: 100px;
+}
+.text-profile h1 span {
+  font-style: italic;
+  font-size: 102px;
+}
+.text-profile h3 {
+  font-size: 72px;
+}
+
+.text-profile h3 span {
+  font-family: "Hilsfiger", sans-serif;
+  font-size: 62px;
+  color: #c03f13;
+  letter-spacing: 0.2em;
+}
+
+.loader-circle {
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+}
+.loader-circle img {
+  height: 450px;
+  width: 450px;
+  animation: animate 10s linear infinite;
+}
+@keyframes animate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .logo a {
+    font-size: 20px;
+  }
+  .loader-circle {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+  }
+  .loader-circle img {
+    height: 160px;
+    width: 160px;
+    animation: animate 10s linear infinite;
+  }
+  .text-profile {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+  }
+  .menu-item p#active::after {
+    background: #c03f13;
+    height: 5px;
+  }
+
+  .text-profile h1 {
+    font-size: 48px;
+  }
+  .text-profile h1 span {
+    font-size: 50px;
+  }
+  .text-profile h3 {
+    font-size: 32px;
+  }
+
+  .text-profile h3 span {
+    font-family: "Hilsfiger", sans-serif;
+    font-size: 24px;
+    color: #c03f13;
+    letter-spacing: 0.2em;
+  }
+}

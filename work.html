@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.cdnfonts.com/css/unbounded" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/hilsfiger" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Lexend", sans-serif;
+        cursor: none;
+      }
+
+      body {
+        background-color: #c03f13;
+      }
+
+      .cursor-dot {
+        width: 5px;
+        height: 5px;
+        background-color: #505050;
+      }
+
+      .cursor-outline {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #505050;
+      }
+
+      .cursor-dot,
+      .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .loader-wrap {
+        position: absolute;
+        z-index: 10;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+      }
+      .loader-wrap svg {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 110vh;
+      }
+      path {
+        fill: #141412;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+      }
+
+      @media (max-width: 767px) {
+        .loader-wrap svg {
+          width: 200vw;
+          margin-left: -50vw;
+        }
+        .loader-wrap .loader-wrap-heading,
+        .container h1 {
+          font-size: 60px;
+        }
+      }
+
+      nav {
+        position: fixed;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+
+        z-index: 2;
+      }
+
+      nav > div {
+        flex: 1;
+      }
+
+      nav > a {
+        text-decoration: none;
+        color: #cdc6be;
+        font-family: "unbounded", sans-serif;
+        font-size: 20px;
+        font-weight: 300;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+      }
+
+      .container1 {
+        height: 400px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: start;
+      }
+
+      .card {
+        width: 100px;
+
+        border-radius: 0.75rem;
+        background-size: cover;
+        cursor: none;
+        overflow: hidden;
+        border-radius: 2rem;
+        margin: 0px 10px;
+        display: flex;
+        align-items: flex-end;
+        transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
+        box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8);
+      }
+
+      .card > .row {
+        color: #cdc6be;
+        display: flex;
+        flex-wrap: nowrap;
+      }
+
+      .card > .row > .icon {
+        background-color: #141412;
+        color: #cdc6be;
+        border-radius: 50%;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 19px;
+      }
+
+      .card > .row > .description {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        overflow: hidden;
+        height: 80px;
+        width: 520px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition-delay: 0.3s;
+        transition: all 0.3s ease;
+      }
+
+      .description p {
+        color: #141412;
+        padding-top: 5px;
+        padding-bottom: 7px;
+        margin-right: 1px;
+      }
+
+      .description h4 {
+        color: #c03f13;
+        text-transform: uppercase;
+      }
+      .description a {
+        color: #c03f13;
+      }
+
+      input {
+        display: none;
+      }
+
+      input:checked + label {
+        width: 600px;
+      }
+
+      input:checked + label .description {
+        opacity: 1 !important;
+        transform: translateY(0px) !important;
+      }
+
+      .card[for="c1"] {
+        background-image: url(assets/w1.png);
+      }
+
+      .card[for="c2"] {
+        background-image: url(assets/w2.png);
+      }
+
+      .card[for="c3"] {
+        background-image: url(assets/w3.png);
+      }
+
+      .card[for="c4"] {
+        background-image: url(assets/w4.png);
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 1.5rem 10rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .word {
+        display: flex;
+      }
+
+      .word span {
+        cursor: none;
+        font-family: "Hilsfiger", sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 9vw;
+        transition: 400ms cubic-bezier(0.075, 0.82, 0.165, 1);
+        transform-origin: bottom;
+        color: #cdc6be;
+      }
+      @media (max-width: 900px) {
+        .footer {
+          left: -20px;
+        }
+        .card {
+          width: 65px;
+          height: 350px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+    <div class="loader-wrap">
+      <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+        <path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
+      </svg>
+
+      <div class="loader-wrap-heading"></div>
+    </div>
+    <nav>
+      <a class="back" href="index.html">Back</a>
+    </nav>
+    <div class="container">
+      <div class="wrapper">
+        <div class="container1">
+          <input type="radio" name="slide" id="c1" />
+          <label for="c1" class="card">
+            <div class="row">
+              <div class="icon">1</div>
+              <div class="description">
+                <h4>Portfolio V.1</h4>
+                <p>
+                  Portofolio pertama yang saya buat dan saya gunakan sebelumnya meggunakan HTML & CSS Bootstrap 5. <a href="https://giandriaditio.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i></a>
+                </p>
+              </div>
+            </div>
+          </label>
+          <input type="radio" name="slide" id="c2" />
+          <label for="c2" class="card">
+            <div class="row">
+              <div class="icon">2</div>
+              <div class="description">
+                <h4>Company Website</h4>
+                <p>
+                  Techno Innovate merupakan contoh website perusahaan menggunakan HTML & CSS Dasar. <a href="https://tech-innovate-fawn.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i></a>
+                </p>
+              </div>
+            </div>
+          </label>
+          <input type="radio" name="slide" id="c3" />
+          <label for="c3" class="card">
+            <div class="row">
+              <div class="icon">3</div>
+              <div class="description">
+                <h4>Login Page</h4>
+                <p>
+                  Sebuah tampilan login sederhana yang menggunakan HTML & CSS sekaligus JS Dasar. <a href="https://login-page-khaki-phi.vercel.app/" target="_blank"><i class="fa-solid fa-link"></i></a>
+                </p>
+              </div>
+            </div>
+          </label>
+          <input type="radio" name="slide" id="c4" />
+          <label for="c4" class="card">
+            <div class="row">
+              <div class="icon">4</div>
+              <div class="description">
+                <h4>G-Form</h4>
+                <p>
+                  G-Form adalah sebuah web PHP CRUD dimana terdaoat SQL sebagai database. <a href="https://github.com/Giandri/gi-form" target="_blank"><i class="fa-solid fa-link"></i></a>
+                </p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="word">
+          <span>T</span>
+          <span>H</span>
+          <span>E</span>
+        </div>
+        <div class="word">
+          <span>G</span>
+        </div>
+        <div class="word">
+          <span>P</span>
+          <span>R</span>
+          <span>O</span>
+          <span>J</span>
+          <span>E</span>
+          <span>C</span>
+          <span>T</span>
+        </div>
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      const cursorDot = document.querySelector("[data-cursor-dot]");
+      const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+      window.addEventListener("mousemove", function (e) {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        // cursorOutline.style.left = `${posX}px`;
+        // cursorOutline.style.top = `${posY}px`;
+
+        cursorOutline.animate(
+          {
+            left: `${posX}px`,
+            top: `${posY}px`,
+          },
+          {
+            duration: 500,
+            fill: "forwards",
+          }
+        );
+      });
+
+      const textContainers = document.querySelectorAll(".word");
+
+      const defaultScale = 1;
+      const maxScale = 2;
+      const neighborScale = 1.5;
+
+      textContainers.forEach((textContainer) => {
+        const spans = textContainer.querySelectorAll("span");
+
+        textContainer.addEventListener("mouseover", (e) => {
+          const target = e.target;
+          const index = Array.from(spans).indexOf(target);
+
+          spans.forEach((span, i) => {
+            let scale = defaultScale;
+
+            if (i === index) {
+              scale = maxScale;
+            } else if (i === index - 1 || i === index + 1) {
+              scale = neighborScale;
+            }
+
+            span.style.transform = `scaleY(${scale})`;
+          });
+        });
+
+        textContainer.addEventListener("mouseleave", () => {
+          spans.forEach((span) => {
+            span.style.transform = `scaleY(${defaultScale})`;
+          });
+        });
+      });
+
+      const svg = document.getElementById("svg");
+      const tl = gsap.timeline();
+      const curve = "M0 502S175 272 500 272s500 230 500 230V0H0Z";
+      const flat = "M0 2S175 1 500 1s500 1 500 1V0H0Z";
+
+      tl.to(svg, {
+        delay: 0.5,
+        duration: 0.8,
+        attr: {d: curve},
+        ease: "power2.easeIn",
+      }).to(svg, {
+        duration: 0.8,
+        attr: {d: flat},
+        ease: "power2.easeOut",
+      });
+      tl.to(".loader-wrap", {
+        y: -1500,
+      });
+      tl.to(".loader-wrap", {
+        zIndex: -1,
+        display: "none",
+      });
+    </script>
+  </body>
+</html>
