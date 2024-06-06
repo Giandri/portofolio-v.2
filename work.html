@@ -413,6 +413,14 @@
         zIndex: -1,
         display: "none",
       });
+
+      document.addEventListener("mouseup", function (event) {
+        if (event.target.classList.contains(".card")) {
+          if (event.target.checked) {
+            event.target.checked = false;
+          }
+        }
+      });
     </script>
   </body>
 </html>
